@@ -1,0 +1,25 @@
+﻿@model Tovan_v3.Models.Tbl_images
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        <h4>Tbl_images</h4>
+        <hr />
+        <span>Select File:</span>
+        <input type="file" name="imageSrc" />
+        <hr />
+        <select id="category" name="imageCategory">
+            <option value="1">Tovat</option>
+            <option value="2">Painted</option>
+            <option value="3">Photagrapy</option>
+            <option value="4">Gallery</option>
+        </select>
+         <input type="submit" value="Create" />
+
+        @ViewBag.Image
+        @ViewBag.Message
+}

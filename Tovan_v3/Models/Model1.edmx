@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="project_tovanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryType" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_images">
+          <Key>
+            <PropertyRef Name="imageID" />
+          </Key>
+          <Property Name="imageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imageSrc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="imageCategory" Type="int" />
+        </EntityType>
+        <Association Name="Fk_Tbl_images_Tbl_category">
+          <End Role="Tbl_category" Type="Self.Tbl_category" Multiplicity="0..1" />
+          <End Role="Tbl_images" Type="Self.Tbl_images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Tbl_images">
+              <PropertyRef Name="imageCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="project_tovanModelStoreContainer">
+          <EntitySet Name="Tbl_category" EntityType="Self.Tbl_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_images" EntityType="Self.Tbl_images" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_Tbl_images_Tbl_category" Association="Self.Fk_Tbl_images_Tbl_category">
+            <End Role="Tbl_category" EntitySet="Tbl_category" />
+            <End Role="Tbl_images" EntitySet="Tbl_images" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="project_tovanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tbl_images" Relationship="Self.Fk_Tbl_images_Tbl_category" FromRole="Tbl_category" ToRole="Tbl_images" />
+        </EntityType>
+        <EntityType Name="Tbl_images">
+          <Key>
+            <PropertyRef Name="imageID" />
+          </Key>
+          <Property Name="imageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imageSrc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="imageCategory" Type="Int32" />
+          <NavigationProperty Name="Tbl_category" Relationship="Self.Fk_Tbl_images_Tbl_category" FromRole="Tbl_images" ToRole="Tbl_category" />
+        </EntityType>
+        <Association Name="Fk_Tbl_images_Tbl_category">
+          <End Role="Tbl_category" Type="Self.Tbl_category" Multiplicity="0..1" />
+          <End Role="Tbl_images" Type="Self.Tbl_images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Tbl_images">
+              <PropertyRef Name="imageCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="project_tovanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_category" EntityType="Self.Tbl_category" />
+          <EntitySet Name="Tbl_images" EntityType="Self.Tbl_images" />
+          <AssociationSet Name="Fk_Tbl_images_Tbl_category" Association="Self.Fk_Tbl_images_Tbl_category">
+            <End Role="Tbl_category" EntitySet="Tbl_category" />
+            <End Role="Tbl_images" EntitySet="Tbl_images" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="project_tovanModelStoreContainer" CdmEntityContainer="project_tovanEntities">
+          <EntitySetMapping Name="Tbl_category">
+            <EntityTypeMapping TypeName="project_tovanModel.Tbl_category">
+              <MappingFragment StoreEntitySet="Tbl_category">
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="categoryType" ColumnName="categoryType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_images">
+            <EntityTypeMapping TypeName="project_tovanModel.Tbl_images">
+              <MappingFragment StoreEntitySet="Tbl_images">
+                <ScalarProperty Name="imageID" ColumnName="imageID" />
+                <ScalarProperty Name="imageSrc" ColumnName="imageSrc" />
+                <ScalarProperty Name="imageCategory" ColumnName="imageCategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
